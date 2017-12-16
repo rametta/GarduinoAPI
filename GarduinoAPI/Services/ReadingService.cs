@@ -4,19 +4,54 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using ServiceStack;
+using ServiceStack.OrmLite;
 
 using GarduinoAPI.Types;
 
 namespace GarduinoAPI.Services
 {
-    [Route("/api/starter", "GET")]
-    public class GetStarterReq { }
+    [Route("/api/readings", "GET")]
+    public class ReadingsQuery : QueryDb<Reading> { }
+
+    [Route("/api/reading", "POST")]
+    public class PostReading
+    {
+      public Reading Reading { get; set; }
+    }
+
+    [Route("/api/reading", "PUT")]
+    public class PutReading
+    {
+      public Reading Reading { get; set; }
+    }
+
+    [Route("/api/reading", "DELETE")]
+    public class DeleteReading
+    {
+      public int ReadingId { get; set; }
+    }
 
     public class ReadingService : Service
     {
-        public Starter Get(GetStarterReq req)
+        public Reading Post(PostReading req)
         {
-            return new Starter { Hello = "World" };
+          if (req.Reading != null)
+            Db.Insert(req.Reading);
+
+          return req.Reading;
+        }
+
+        public Reading Put(PutReading req)
+        {
+          if (req.Reading != null)
+            Db.Update(req.Reading);
+            
+          return req.Reading;
+        }
+
+        public int Delete(DeleteReading req)
+        {
+          return req.ReadingId > 0 ? Db.DeleteById<Reading>(req.ReadingId) : 0;
         }
     }
 }
