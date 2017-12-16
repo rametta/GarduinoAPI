@@ -24,7 +24,6 @@ namespace GarduinoAPI
 
             container.Register<IDbConnectionFactory>(c => dbFactory);
             container.Register<ICacheClient>(new MemoryCacheClient());
-            // container.Register<IUserAuthRepository>(new InMemoryAuthRepository());
             container.Register<IUserAuthRepository>(c => new OrmLiteAuthRepository(c.Resolve<IDbConnectionFactory>()));
 
             Plugins.Add(new SwaggerFeature());
