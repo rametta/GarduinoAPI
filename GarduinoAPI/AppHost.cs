@@ -14,7 +14,7 @@ namespace GarduinoAPI
 {
     internal class AppHost : AppHostBase
     {
-        public AppHost() : base("GarduinoAPI", typeof(Services.ReadingService).GetAssembly()) { }
+        public AppHost() : base("GarduinoAPI", typeof(Services.ReadingService).Assembly) { }
 
         public override void Configure(Container container)
         {
@@ -28,7 +28,10 @@ namespace GarduinoAPI
             // var dbFactory = new OrmLiteConnectionFactory(MapProjectPath("future_bi.db"), SqliteDialect.Provider);
 
             // In Mermory SQLite DB
+            // var dbFactory = new OrmLiteConnectionFactory(":memory:", SqliteDialect.Provider);
+
             var dbFactory = new OrmLiteConnectionFactory(":memory:", SqliteDialect.Provider);
+            dbFactory.AutoDisposeConnection = false;
 
             container.Register<IDbConnectionFactory>(c => dbFactory);
 
