@@ -10,3 +10,7 @@
   + Completely supports .Net Core to be ran as a Docker image
   + Runs on SQLite
   + Secure Authentication
+
+- Docker commands
+ + Build: `docker build -t garduinoapi .`
+ + Run: `docker run -d -p 8080:80 --name garduinoapi garduinoapi`
