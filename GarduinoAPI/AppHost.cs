@@ -10,7 +10,7 @@ using ServiceStack.Caching;
 using ServiceStack.OrmLite;
 using ServiceStack.Api.Swagger;
 
-using GarduinoAPI.Types;
+using GarduinoAPI.Models;
 
 namespace GarduinoAPI
 {

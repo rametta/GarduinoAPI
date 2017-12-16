@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using ServiceStack;
 using ServiceStack.OrmLite;
 
-using GarduinoAPI.Types;
+using GarduinoAPI.Models;
 
 namespace GarduinoAPI.Services
 {

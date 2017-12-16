@@ -8,7 +8,7 @@ using ServiceStack.Configuration;
 using ServiceStack.Data;
 using ServiceStack.OrmLite;
 
-namespace GarduinoAPI.Types
+namespace GarduinoAPI.Models
 {
     public class User : AuthUserSession
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ServiceStack.DataAnnotations;
 
-namespace GarduinoAPI.Types
+namespace GarduinoAPI.Models
 {
     public class Garden
     {
