@@ -19,12 +19,6 @@ namespace GarduinoAPI.Services
       public Reading Reading { get; set; }
     }
 
-    [Route("/api/reading", "PUT")]
-    public class PutReading
-    {
-      public Reading Reading { get; set; }
-    }
-
     [Route("/api/reading", "DELETE")]
     public class DeleteReading
     {
@@ -36,16 +30,8 @@ namespace GarduinoAPI.Services
         public Reading Post(PostReading req)
         {
           if (req.Reading != null)
-            Db.Insert(req.Reading);
+            Db.Save(req.Reading);
 
-          return req.Reading;
-        }
-
-        public Reading Put(PutReading req)
-        {
-          if (req.Reading != null)
-            Db.Update(req.Reading);
-            
           return req.Reading;
         }
 

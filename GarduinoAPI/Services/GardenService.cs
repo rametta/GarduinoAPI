@@ -19,12 +19,6 @@ namespace GarduinoAPI.Services
       public Garden Garden { get; set; }
     }
 
-    [Route("/api/garden", "PUT")]
-    public class PutGarden
-    {
-      public Garden Garden { get; set; }
-    }
-
     [Route("/api/garden", "DELETE")]
     public class DeleteGarden
     {
@@ -36,16 +30,8 @@ namespace GarduinoAPI.Services
         public Garden Post(PostGarden req)
         {
           if (req.Garden != null)
-            Db.Insert(req.Garden);
+            Db.Save(req.Garden);
 
-          return req.Garden;
-        }
-
-        public Garden Put(PutGarden req)
-        {
-          if (req.Garden != null)
-            Db.Update(req.Garden);
-            
           return req.Garden;
         }
 
