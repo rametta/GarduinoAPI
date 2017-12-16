@@ -10,6 +10,8 @@ using ServiceStack.Admin;
 using ServiceStack.Api.Swagger;
 using ServiceStack.Data;
 
+using GarduinoAPI.Types;
+
 namespace GarduinoAPI
 {
     internal class AppHost : AppHostBase
@@ -18,28 +20,25 @@ namespace GarduinoAPI
 
         public override void Configure(Container container)
         {
-            // MS SQLServer DB
-            // var connectionString = "Data Source=PCNAME;Integrated Security=true;Initial Catalog=future_bi;Max Pool Size=2000;MultipleActiveResultSets=true;Application Name=SSCoreStarter";
-            // var dbFactory = new OrmLiteConnectionFactory(connectionString, SqlServerDialect.Provider);
-
-            // var connectionString = $"Data Source={Directory.GetCurrentDirectory()}\\future_bi.db;Version=3;";
-
-            // SQLite DB
-            // var dbFactory = new OrmLiteConnectionFactory(MapProjectPath("future_bi.db"), SqliteDialect.Provider);
-
-            // In Mermory SQLite DB
-            // var dbFactory = new OrmLiteConnectionFactory(":memory:", SqliteDialect.Provider);
-
-            var dbFactory = new OrmLiteConnectionFactory(":memory:", SqliteDialect.Provider);
-            dbFactory.AutoDisposeConnection = false;
+            var dbFactory = new OrmLiteConnectionFactory(MapProjectPath("GarduinoDB.db"), SqliteDialect.Provider);
 
             container.Register<IDbConnectionFactory>(c => dbFactory);
 
-            Plugins.Add(new SwaggerFeature { UseBootstrapTheme = true });
-            Plugins.Add(new AutoQueryFeature { MaxLimit = 100 });
+            SetupDBTables(container);
+
+            Plugins.Add(new SwaggerFeature());
+            Plugins.Add(new AutoQueryFeature());
             Plugins.Add(new AdminFeature());
 
             JsConfig<DateTime>.SerializeFn = time => new DateTime(time.Ticks, DateTimeKind.Local).ToString("O");
+        }
+
+        private void SetupDBTables(Container container) {
+            using (var db = container.Resolve<IDbConnectionFactory>().Open())
+            {
+                db.CreateTableIfNotExists<Garden>();
+                db.CreateTableIfNotExists<Reading>();
+            }
         }
     }
 }
