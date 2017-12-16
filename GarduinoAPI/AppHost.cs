@@ -43,7 +43,9 @@ namespace GarduinoAPI
             authRepo.InitSchema();
 
             JsConfig<DateTime>.SerializeFn = time => new DateTime(time.Ticks, DateTimeKind.Local).ToString("O");
+            JsConfig<DateTime?>.SerializeFn = time => new DateTime(time.Value.Ticks, DateTimeKind.Local).ToString("O");
             JsConfig.EmitCamelCaseNames = true;
+            JsConfig.IncludeNullValues = true;
         }
 
         private void ConfigureDb(Container container)

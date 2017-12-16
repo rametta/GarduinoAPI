@@ -16,7 +16,7 @@ namespace GarduinoAPI.Models
         [ForeignKey(typeof(Garden), OnDelete = "CASCADE", OnUpdate = "CASCADE")]
         public int GardenId { get; set; }
 
-        public DateTime Date { get; set; } = DateTime.Now;
+        public DateTime? Date { get; set; } = DateTime.Now;
 
         public double Temperature { get; set; }
 

@@ -16,13 +16,13 @@ namespace GarduinoAPI.Services
     [Route("/api/reading", "POST")]
     public class PostReading
     {
-      public Reading Reading { get; set; }
+        public Reading Reading { get; set; }
     }
 
     [Route("/api/reading", "DELETE")]
     public class DeleteReading
     {
-      public int ReadingId { get; set; }
+        public int ReadingId { get; set; }
     }
 
     [Authenticate()]
@@ -30,15 +30,15 @@ namespace GarduinoAPI.Services
     {
         public Reading Post(PostReading req)
         {
-          if (req.Reading != null)
-            Db.Save(req.Reading);
+            if (req.Reading != null)
+                Db.Save(req.Reading);
 
-          return req.Reading;
+            return req.Reading;
         }
 
         public int Delete(DeleteReading req)
         {
-          return req.ReadingId > 0 ? Db.DeleteById<Reading>(req.ReadingId) : 0;
+            return req.ReadingId > 0 ? Db.DeleteById<Reading>(req.ReadingId) : 0;
         }
     }
 }
