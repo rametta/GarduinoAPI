@@ -25,7 +25,7 @@ namespace GarduinoAPI
             container.Register<ICacheClient>(new MemoryCacheClient());
 
             Plugins.Add(new SwaggerFeature());
-            Plugins.Add(new AutoQueryFeature());
+            Plugins.Add(new AutoQueryFeature { MaxLimit = 200 });
             Plugins.Add(new AdminFeature());
             Plugins.Add(new RequestLogsFeature());
             Plugins.Add(new CorsFeature());

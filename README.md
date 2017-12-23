@@ -9,7 +9,6 @@
   + Helpfull HTTP error messages
   + Completely supports .Net Core to be ran as a Docker image
   + Runs on SQLite
-  + Secure Authentication
 
 - Docker commands
  + Build: `docker build -t garduinoapi .`
