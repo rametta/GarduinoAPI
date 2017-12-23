@@ -25,7 +25,6 @@ namespace GarduinoAPI.Services
         public int ReadingId { get; set; }
     }
 
-    [Authenticate()]
     public class ReadingService : Service
     {
         public Reading Post(PostReading req)

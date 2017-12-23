@@ -9,8 +9,7 @@ namespace GarduinoAPI.Models
 {
     public class Reading
     {
-        [PrimaryKey]
-        [AutoIncrement]
+        [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
         [ForeignKey(typeof(Garden), OnDelete = "CASCADE", OnUpdate = "CASCADE")]

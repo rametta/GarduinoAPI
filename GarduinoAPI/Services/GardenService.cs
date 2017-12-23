@@ -25,7 +25,6 @@ namespace GarduinoAPI.Services
       public int GardenId { get; set; }
     }
 
-    [Authenticate()]
     public class GardenService : Service
     {
         public Garden Post(PostGarden req)

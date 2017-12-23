@@ -3,7 +3,6 @@ using Funq;
 
 using ServiceStack;
 using ServiceStack.Text;
-using ServiceStack.Auth;
 using ServiceStack.Data;
 using ServiceStack.Admin;
 using ServiceStack.Caching;
@@ -24,28 +23,20 @@ namespace GarduinoAPI
 
             container.Register<IDbConnectionFactory>(c => dbFactory);
             container.Register<ICacheClient>(new MemoryCacheClient());
-            container.Register<IUserAuthRepository>(c => new OrmLiteAuthRepository(c.Resolve<IDbConnectionFactory>()));
 
             Plugins.Add(new SwaggerFeature());
             Plugins.Add(new AutoQueryFeature());
             Plugins.Add(new AdminFeature());
             Plugins.Add(new RequestLogsFeature());
-            Plugins.Add(new AuthFeature(() => new User(),
-                  new IAuthProvider[] {
-                new CredentialsAuthProvider()
-              }));
-            Plugins.Add(new RegistrationFeature());
-
+            Plugins.Add(new CorsFeature());
 
             ConfigureDb(container);
-
-            var authRepo = (OrmLiteAuthRepository)container.Resolve<IUserAuthRepository>();
-            authRepo.InitSchema();
 
             JsConfig<DateTime>.SerializeFn = time => new DateTime(time.Ticks, DateTimeKind.Local).ToString("O");
             JsConfig<DateTime?>.SerializeFn = time => new DateTime(time.Value.Ticks, DateTimeKind.Local).ToString("O");
             JsConfig.EmitCamelCaseNames = true;
             JsConfig.IncludeNullValues = true;
+            JsConfig.IncludeNullValuesInDictionaries = true;
         }
 
         private void ConfigureDb(Container container)
