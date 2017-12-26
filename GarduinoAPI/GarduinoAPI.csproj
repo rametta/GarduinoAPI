@@ -6,12 +6,11 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
-    <PackageReference Include="Microsoft.Data.SQLite" Version="2.0.0" />
     <PackageReference Include="ServiceStack" Version="5.0.0" />
     <PackageReference Include="ServiceStack.Admin" Version="5.0.0" />
     <PackageReference Include="ServiceStack.Api.Swagger" Version="5.0.0" />
     <PackageReference Include="ServiceStack.OrmLite" Version="5.0.0" />
-    <PackageReference Include="ServiceStack.OrmLite.Sqlite" Version="5.0.0" />
+    <PackageReference Include="ServiceStack.OrmLite.MySql" Version="5.0.0" />
   </ItemGroup>
 
 </Project>

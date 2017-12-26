@@ -19,24 +19,14 @@ namespace GarduinoAPI
 
         public override void Configure(Container container)
         {
-            var dbFactory = new OrmLiteConnectionFactory(MapProjectPath("GarduinoDB.db"), SqliteDialect.Provider);
+            var dbFactory = new OrmLiteConnectionFactory("server=localhost;uid=root;pwd=root;database=garduino;SslMode=none", MySqlDialect.Provider);
 
             container.Register<IDbConnectionFactory>(c => dbFactory);
             container.Register<ICacheClient>(new MemoryCacheClient());
 
-            Plugins.Add(new SwaggerFeature());
-            Plugins.Add(new AutoQueryFeature { MaxLimit = 200 });
-            Plugins.Add(new AdminFeature());
-            Plugins.Add(new RequestLogsFeature());
-            Plugins.Add(new CorsFeature());
-
             ConfigureDb(container);
-
-            JsConfig<DateTime>.SerializeFn = time => new DateTime(time.Ticks, DateTimeKind.Local).ToString("O");
-            JsConfig<DateTime?>.SerializeFn = time => new DateTime(time.Value.Ticks, DateTimeKind.Local).ToString("O");
-            JsConfig.EmitCamelCaseNames = true;
-            JsConfig.IncludeNullValues = true;
-            JsConfig.IncludeNullValuesInDictionaries = true;
+            ConfigurePlugins();
+            ConfigureJsConfig();
         }
 
         private void ConfigureDb(Container container)
@@ -46,6 +36,24 @@ namespace GarduinoAPI
                 db.CreateTableIfNotExists<Garden>();
                 db.CreateTableIfNotExists<Reading>();
             }
+        }
+
+        private void ConfigurePlugins()
+        {
+            Plugins.Add(new SwaggerFeature());
+            Plugins.Add(new AutoQueryFeature { MaxLimit = 200 });
+            Plugins.Add(new AdminFeature());
+            Plugins.Add(new RequestLogsFeature());
+            Plugins.Add(new CorsFeature());
+        }
+
+        private void ConfigureJsConfig()
+        {
+            JsConfig<DateTime>.SerializeFn = time => new DateTime(time.Ticks, DateTimeKind.Local).ToString("O");
+            JsConfig<DateTime?>.SerializeFn = time => new DateTime(time.Value.Ticks, DateTimeKind.Local).ToString("O");
+            JsConfig.EmitCamelCaseNames = true;
+            JsConfig.IncludeNullValues = true;
+            JsConfig.IncludeNullValuesInDictionaries = true;
         }
     }
 }
