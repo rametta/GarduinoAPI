@@ -35,9 +35,11 @@ namespace GarduinoAPI.Services
           return req.Garden;
         }
 
-        public int Delete(DeleteGarden req)
+        public void Delete(DeleteGarden req)
         {
-          return req.GardenId > 0 ? Db.DeleteById<Garden>(req.GardenId) : 0;
+          if (req.GardenId == 0)
+            throw new ArgumentNullException("GardenId");
+          Db.DeleteById<Garden>(req.GardenId);
         }
     }
 }
